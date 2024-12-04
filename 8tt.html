@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة تعليم الحروف الإنجليزية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .question {
+            font-size: 24px;
+            margin: 20px;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            justify-items: center;
+            margin: 20px;
+        }
+        .option {
+            background-color: #d3d3d3;
+            color: black;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            border: none;
+            border-radius: 10px;
+        }
+        .option:hover {
+            transform: scale(1.1);
+        }
+        .option.correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .option.wrong {
+            background-color: #f44336;
+            color: white;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>تعليم الحروف</h1>
+        <p class="question"></p>
+        <div class="options"></div>
+    </div>
+    <footer>هذا البرنامج صنع خصيصا لجلنار</footer>
+
+    <script>
+        // قائمة الحروف المستثناة
+        const excludedLetters = ['U', 'G', 'L', 'I', 'X', 'C', 'V'];
+
+        // إنشاء قائمة الحروف مع استثناء بعض الحروف
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter(letter => !excludedLetters.includes(letter));
+        const arabicPronunciations = {
+            'A': 'ا', 'B': 'ب', 'D': 'د', 'E': 'ي', 'F': 'ف', 'H': 'ه',
+            'J': 'ج', 'K': 'ك', 'M': 'م', 'N': 'ن', 'O': 'و', 'P': 'ب',
+            'Q': 'ك', 'R': 'ر', 'S': 'س', 'T': 'ت', 'W': 'و',
+            'Y': 'ي', 'Z': 'ز'
+        };
+
+        const questionElement = document.querySelector('.question');
+        const optionsElement = document.querySelector('.options');
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        function generateQuestion() {
+            // اختيار حرف عشوائي
+            const randomLetter = letters[getRandomInt(letters.length)];
+            const correctAnswer = arabicPronunciations[randomLetter];
+
+            // إنشاء خيارات عشوائية
+            const allOptions = Object.values(arabicPronunciations);
+            const wrongOptions = allOptions.filter(option => option !== correctAnswer)
+                                           .sort(() => Math.random() - 0.5)
+                                           .slice(0, 3);
+
+            const options = [...wrongOptions, correctAnswer].sort(() => Math.random() - 0.5);
+
+            // عرض السؤال
+            questionElement.textContent = `كيف يلفظ هذا الحرف: ${randomLetter}`;
+
+            // إعادة تعيين الخيارات
+            optionsElement.innerHTML = '';
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, correctAnswer);
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(button, correctAnswer) {
+            // جعل الإجابة الصحيحة باللون الأخضر
+            document.querySelectorAll('.option').forEach(btn => {
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            if (button.textContent === correctAnswer) {
+                // إجابة صحيحة
+                button.classList.add('correct');
+            } else {
+                // إجابة خاطئة
+                button.classList.add('wrong');
+                navigator.vibrate(80); // اهتزاز الجهاز
+            }
+
+            // تعطيل كل الأزرار أثناء الانتقال إلى السؤال التالي
+            document.querySelectorAll('.option').forEach(btn => btn.onclick = null);
+
+            setTimeout(() => generateQuestion(), 2000);
+        }
+
+        // بدء اللعبة
+        generateQuestion();
+    </script>
+</body>
+</html>
