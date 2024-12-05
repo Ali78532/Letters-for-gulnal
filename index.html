@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة تعليم الحروف الإنجليزية</title>
+    <title>الحروف</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,7 +26,7 @@
             align-items: center;
         }
         .question {
-            font-size: 24px;
+            font-size: 35px;
             margin: 20px;
         }
         .options {
@@ -84,10 +84,10 @@
         // إنشاء قائمة الحروف مع استثناء بعض الحروف
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter(letter => !excludedLetters.includes(letter));
         const arabicPronunciations = {
-            'A': 'ا', 'B': 'ب', 'D': 'د', 'E': 'ي', 'F': 'ف', 'H': 'ه',
-            'J': 'ج', 'K': 'ك', 'M': 'م', 'N': 'ن', 'O': 'و', 'P': 'ب',
-            'Q': 'ك', 'R': 'ر', 'S': 'س', 'T': 'ت', 'W': 'و',
-            'Y': 'ي', 'Z': 'ز'
+            'a': 'ا', 'b': 'ب', 'd': 'د', 'e': 'ي', 'f': 'ف', 'h': 'هـ',
+            'j': 'ج', 'k': 'ك', 'm': 'م', 'n': 'ن', 'o': 'و', 'p': 'ب',
+            'q': 'ك', 'r': 'ر', 's': 'س', 't': 'ت', 'w': 'و',
+            'y': 'ي', 'z': 'ز'
         };
 
         const questionElement = document.querySelector('.question');
@@ -111,7 +111,7 @@
             const options = [...wrongOptions, correctAnswer].sort(() => Math.random() - 0.5);
 
             // عرض السؤال
-            questionElement.textContent = `كيف يلفظ هذا الحرف: ${randomLetter}`;
+            questionElement.textContent = `<br>كيف يلفظ هذا الحرف: ${randomLetter}`;
 
             // إعادة تعيين الخيارات
             optionsElement.innerHTML = '';
