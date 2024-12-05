@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة تعليم الحروف الإنجليزية</title>
+    <title>الحروف</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,8 +26,15 @@
             align-items: center;
         }
         .question {
-            font-size: 24px;
+            font-size: 25px; /* تكبير حجم النص */
             margin: 20px;
+            line-height: 1.5; /* تحسين تباعد السطور */
+        }
+        .english-letter {
+            font-size: 50px; /* حجم أكبر للحرف الإنجليزي */
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 10px;
         }
         .options {
             display: grid;
@@ -73,24 +80,25 @@
     <div class="content">
         <h1>تعليم الحروف</h1>
         <p class="question"></p>
+        <p class="english-letter"></p> <!-- سطر منفصل للحرف الإنجليزي -->
         <div class="options"></div>
     </div>
     <footer>هذا البرنامج صنع خصيصا لجلنار</footer>
 
     <script>
         // قائمة الحروف المستثناة
-        const excludedLetters = ['U', 'G', 'L', 'I', 'X', 'C', 'V'];
+        const excludedLetters = ['u', 'g', 'l', 'i', 'x', 'c', 'v'];
 
-        // إنشاء قائمة الحروف مع استثناء بعض الحروف
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter(letter => !excludedLetters.includes(letter));
+        // إنشاء قائمة الحروف مع استثناء بعض الحروف (محولة إلى lowercase)
+        const letters = "abcdefghijklmnopqrstuvwxyz".split("").filter(letter => !excludedLetters.includes(letter));
         const arabicPronunciations = {
-            'A': 'ا', 'B': 'ب', 'D': 'د', 'E': 'ي', 'F': 'ف', 'H': 'ه',
-            'J': 'ج', 'K': 'ك', 'M': 'م', 'N': 'ن', 'O': 'و', 'P': 'ب',
-            'Q': 'ك', 'R': 'ر', 'S': 'س', 'T': 'ت', 'W': 'و',
-            'Y': 'ي', 'Z': 'ز'
+            'a': 'ا', 'b': 'ب', 'd': 'د', 'e': 'ي', 'f': 'ف', 'h': 'هـ','j': 'ج', 'k': 'ك', 'm': 'م', 'n': 'ن', 'o': 'و', 'p': 'ب',
+            'q': 'ك', 'r': 'ر', 's': 'س', 't': 'ت', 'w': 'و',
+            'y': 'ي', 'z': 'ز'
         };
 
         const questionElement = document.querySelector('.question');
+        const englishLetterElement = document.querySelector('.english-letter'); // عنصر الحرف الإنجليزي
         const optionsElement = document.querySelector('.options');
 
         function getRandomInt(max) {
@@ -110,8 +118,9 @@
 
             const options = [...wrongOptions, correctAnswer].sort(() => Math.random() - 0.5);
 
-            // عرض السؤال
-            questionElement.textContent = `كيف يلفظ هذا الحرف: ${randomLetter}`;
+            // عرض السؤال والحرف
+            questionElement.textContent = "كيف يلفظ هذا الحرف";
+            englishLetterElement.textContent = randomLetter; // وضع الحرف في عنصر منفصل
 
             // إعادة تعيين الخيارات
             optionsElement.innerHTML = '';
