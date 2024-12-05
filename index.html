@@ -82,7 +82,7 @@
         const excludedLetters = ['U', 'G', 'L', 'I', 'X', 'C', 'V'];
 
         // إنشاء قائمة الحروف مع استثناء بعض الحروف
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter(letter => !excludedLetters.includes(letter));
+        const letters = "abcdefghijklmnopqrstuvwxyz".split("").filter(letter => !excludedLetters.includes(letter));
         const arabicPronunciations = {
             'a': 'ا', 'b': 'ب', 'd': 'د', 'e': 'ي', 'f': 'ف', 'h': 'هـ',
             'j': 'ج', 'k': 'ك', 'm': 'م', 'n': 'ن', 'o': 'و', 'p': 'ب',
@@ -111,7 +111,7 @@
             const options = [...wrongOptions, correctAnswer].sort(() => Math.random() - 0.5);
 
             // عرض السؤال
-            questionElement.textContent = `<br>كيف يلفظ هذا الحرف: ${randomLetter}`;
+            questionElement.textContent = `كيف يلفظ هذا الحرف:<br> ${randomLetter}`;
 
             // إعادة تعيين الخيارات
             optionsElement.innerHTML = '';
